@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 
+import { PARSE_BASE_URL, PARSE_HEADERS }  from './../utilities/parse.js';
+
 export default class RecipeForm extends Component{
   constructor(props){
     super(props);
     this.state = {
-      photo: '',
+      photoUrl: '',
       recipeName: '',
       author: '',
       private: true,
       recipeType: '',
       prepTime: '',
       cookTime: '',
-      degree: '',
-      temp: '',
-      amount: '',
+      degree: 'Fahrenheit',
+      temp: 350,
+      amount: 12,
       amountNotes: '',
       personalNotes: ''
     };
+
     this._handlePrivacy = this._handlePrivacy.bind(this);
     this._handlePhoto = this._handlePhoto.bind(this);
     this._handleRecipeName = this._handleRecipeName.bind(this);
@@ -29,6 +32,7 @@ export default class RecipeForm extends Component{
     this._handleAmount = this._handleAmount.bind(this);
     this._handleAmountNotes = this._handleAmountNotes.bind(this);
     this._handlePersonalNotes = this._handlePersonalNotes.bind(this);
+    this._addToList = this._addToList.bind(this);
   }
 
   _handlePrivacy() {
@@ -39,7 +43,7 @@ export default class RecipeForm extends Component{
   }
   _handlePhoto(event) {
     this.setState({
-      photo: event.target.value
+      photoUrl: event.target.value
     });
   }
   _handleRecipeName(event) {
@@ -69,7 +73,7 @@ export default class RecipeForm extends Component{
   }
   _handleTemp(event) {
     this.setState({
-      temp: event.target.value
+      temp: Number(event.target.value)
     });
   }
   _handleDegree(event) {
@@ -79,7 +83,7 @@ export default class RecipeForm extends Component{
   }
   _handleAmount(event) {
     this.setState({
-      amount: event.target.value
+      amount: Number(event.target.value)
     });
   }
   _handleAmountNotes(event) {
@@ -92,18 +96,23 @@ export default class RecipeForm extends Component{
       personalNotes: event.target.value
     });
   }
-  // _addToList(event) {
-  //   event.preventDefault();
-  //   let listItem = JSON.stringify(this.state);
-  //
-  //   fetch("https://baby-parse-server.herokuapp.com/recipe", {
-  //     method: "POST",
-  //     body: listItem,
-  //     headers: {
-  //       'Accept': ''
-  //     }
-  //   })
-  // }
+  _addToList(event) {
+    event.preventDefault();
+    console.log(event);
+    console.log(this.state);
+    let listItem = this.state
+    fetch(`${PARSE_BASE_URL}/classes/Recipe`, {
+      method: "POST",
+      body: JSON.stringify(listItem),
+      headers: PARSE_HEADERS
+    })
+    .then(response => {
+      console.log('new recipe added');
+    })
+    .catch(err => {
+      console.log(err)
+    });
+  }
 
     render(){
       return(
@@ -111,8 +120,8 @@ export default class RecipeForm extends Component{
           <form onSubmit={ this._addToList }>
 
             <div>
-              <label htmlFor="photo">Add a photo</label>
-              <input type="file" id="photo" value={ this.state.photo } onChange={ this._handlePhoto } />
+              <label htmlFor="photo">Add a photo url!</label>
+              <input type="text" id="photo" value={ this.state.photo } onChange={ this._handlePhoto } />
             </div>
 
             <div>
@@ -152,7 +161,7 @@ export default class RecipeForm extends Component{
             </div>
 
             <div>
-              <input type="tel" placeholder="Cook Temp" value={ this.state.temp } onChange={ this._handleTemp } />
+              <input type="number" placeholder="Cook Temp" value={ this.state.temp } onChange={ this._handleTemp } />
               <label>°F</label>
               <select placeholder="°F" value={ this.state.degree } onChange={ this._handleDegree }>
                 <option placeholder="Fahrenheit">Fahrenheit</option>
@@ -162,7 +171,7 @@ export default class RecipeForm extends Component{
 
             <div>
               <p>This recipe will make</p>
-              <input type="tel" placeholder="Amount" value={ this.state.amount } onChange={ this._handleAmount }/>
+              <input type="number" placeholder="Amount" value={ this.state.amount } onChange={ this._handleAmount }/>
               <input type="text" placeholder="cookies, loaves, etc" value={ this.state.amountNotes } onChange={ this._handleAmountNotes }/>
             </div>
 
@@ -173,6 +182,10 @@ export default class RecipeForm extends Component{
             <div>
               <label>Personal Notes</label>
               <input type="textarea" value={ this.state.personalNotes } onChange={ this._handlePersonalNotes } />
+            </div>
+
+            <div>
+              <input type="submit" />
             </div>
 
           </form>
