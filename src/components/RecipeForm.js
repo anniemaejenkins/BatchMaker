@@ -15,16 +15,28 @@ export default class RecipeForm extends Component{
       temp: '',
       amount: '',
       amountNotes: ''
-    }
+    };
     this.handlePrivacy = this.handlePrivacy.bind(this);
   }
 
-  handlePrivacy() {
+  _handlePrivacy() {
     let setPrivate = !this.state.private;
     this.setState({
       private: setPrivate
     });
   }
+  // _addToList(event) {
+  //   event.preventDefault();
+  //   let listItem = JSON.stringify(this.state);
+  //
+  //   fetch("https://baby-parse-server.herokuapp.com/recipe", {
+  //     method: "POST",
+  //     body: listItem,
+  //     headers: {
+  //       'Accept': ''
+  //     }
+  //   })
+  // }
 
     render(){
       return(
@@ -46,12 +58,12 @@ export default class RecipeForm extends Component{
 
             <div>
               <label htmlFor='private'>Keep it Private</label>
-              <input id='private' type="checkbox" name="privacy" checked={ this.state.private } onChange={this.handlePrivacy} />
+              <input id='private' type="checkbox" name="privacy" checked={ this.state.private } onChange={this._handlePrivacy} />
             </div>
 
             <div>
               <label htmlFor='private'>Make it Public</label>
-              <input id='private' type="checkbox" name="privacy" checked={ !this.state.private } onChange={ this.handlePrivacy } />
+              <input id='private' type="checkbox" name="privacy" checked={ !this.state.private } onChange={ this._handlePrivacy } />
             </div>
 
             <div>
