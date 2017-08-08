@@ -14,15 +14,82 @@ export default class RecipeForm extends Component{
       degree: '',
       temp: '',
       amount: '',
-      amountNotes: ''
+      amountNotes: '',
+      personalNotes: ''
     };
-    this.handlePrivacy = this.handlePrivacy.bind(this);
+    this._handlePrivacy = this._handlePrivacy.bind(this);
+    this._handlePhoto = this._handlePhoto.bind(this);
+    this._handleRecipeName = this._handleRecipeName.bind(this);
+    this._handleAuthor = this._handleAuthor.bind(this);
+    this._handleRecipeType = this._handleRecipeType.bind(this);
+    this._handlePrepTime = this._handlePrepTime.bind(this);
+    this._handleCookTime = this._handleCookTime.bind(this);
+    this._handleTemp = this._handleTemp.bind(this);
+    this._handleDegree = this._handleDegree.bind(this);
+    this._handleAmount = this._handleAmount.bind(this);
+    this._handleAmountNotes = this._handleAmountNotes.bind(this);
+    this._handlePersonalNotes = this._handlePersonalNotes.bind(this);
   }
 
   _handlePrivacy() {
     let setPrivate = !this.state.private;
     this.setState({
       private: setPrivate
+    });
+  }
+  _handlePhoto(event) {
+    this.setState({
+      photo: event.target.value
+    });
+  }
+  _handleRecipeName(event) {
+    this.setState({
+      recipeName: event.target.value
+    });
+  }
+  _handleAuthor(event) {
+    this.setState({
+      author: event.target.value
+    });
+  }
+  _handleRecipeType(event) {
+    this.setState({
+      recipeType: event.target.value
+    });
+  }
+  _handlePrepTime(event) {
+    this.setState({
+      prepTime: event.target.value
+    });
+  }
+  _handleCookTime(event) {
+    this.setState({
+      cookTime: event.target.value
+    });
+  }
+  _handleTemp(event) {
+    this.setState({
+      temp: event.target.value
+    });
+  }
+  _handleDegree(event) {
+    this.setState({
+      degree: event.target.value
+    });
+  }
+  _handleAmount(event) {
+    this.setState({
+      amount: event.target.value
+    });
+  }
+  _handleAmountNotes(event) {
+    this.setState({
+      amountNotes: event.target.value
+    });
+  }
+  _handlePersonalNotes(event) {
+    this.setState({
+      personalNotes: event.target.value
     });
   }
   // _addToList(event) {
@@ -68,7 +135,7 @@ export default class RecipeForm extends Component{
 
             <div>
               <label>Recipe Type</label>
-              <select placeholder="Recipe Type">
+              <select placeholder="Recipe Type" value={ this.state.recipeType } onChange={ this._handleRecipeType }>
                 <option placeholder="Breakfast">Breakfast</option>
                 <option placeholder="Lunch">Lunch</option>
                 <option placeholder="Dinner">Dinner</option>
@@ -77,16 +144,17 @@ export default class RecipeForm extends Component{
             </div>
 
             <div>
-              <input type="text" placeholder="Prep Time" />
+              <input type="text" placeholder="Prep Time" value={ this.state.prepTime } onChange={ this._handlePrepTime }/>
             </div>
 
             <div>
-              <input type="text" placeholder="Cook Time" />
+              <input type="text" placeholder="Cook Time" value={ this.state.cookTime } onChange={ this._handleCookTime } />
             </div>
 
             <div>
+              <input type="tel" placeholder="Cook Temp" value={ this.state.temp } onChange={ this._handleTemp } />
               <label>°F</label>
-              <select placeholder="°F">
+              <select placeholder="°F" value={ this.state.degree } onChange={ this._handleDegree }>
                 <option placeholder="Fahrenheit">Fahrenheit</option>
                 <option placeholder="Celsius">Celsius</option>
               </select>
@@ -94,8 +162,17 @@ export default class RecipeForm extends Component{
 
             <div>
               <p>This recipe will make</p>
-              <input type="tel" placeholder="Amount" />
-              <input type="text" placeholder="cookies, loaves, etc" />
+              <input type="tel" placeholder="Amount" value={ this.state.amount } onChange={ this._handleAmount }/>
+              <input type="text" placeholder="cookies, loaves, etc" value={ this.state.amountNotes } onChange={ this._handleAmountNotes }/>
+            </div>
+
+            <div>
+              <p>Placeholder for steps component***</p>
+            </div>
+
+            <div>
+              <label>Personal Notes</label>
+              <input type="textarea" value={ this.state.personalNotes } onChange={ this._handlePersonalNotes } />
             </div>
 
           </form>
