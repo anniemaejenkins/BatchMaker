@@ -117,6 +117,7 @@ export default class RecipeForm extends Component{
     render(){
       return(
         <div>
+          <h1>Add a Recipe!</h1>
           <form onSubmit={ this._addToList }>
 
             <div>
@@ -134,7 +135,7 @@ export default class RecipeForm extends Component{
 
             <div>
               <label htmlFor='private'>Keep it Private</label>
-              <input id='private' type="checkbox" name="privacy" checked={ this.state.private } onChange={this._handlePrivacy} />
+              <input id='private' type="checkbox" name="privacy" checked={ this.state.private } onChange={ this._handlePrivacy } />
             </div>
 
             <div>
