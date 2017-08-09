@@ -35,22 +35,27 @@ class App extends Component {
   // obj[key] = event.target.value;
   // this.setState(obj);
 // }
+componentWillMount(){
+    if(localStorage.getItem('user')) {
+      this.props.history.push('/recipeslist');
+    }
+  }
 
 
   render() {
     return (
       <div className="App">
-        <h1>Welcome to Batch Maker, a recipe making site!</h1>
-        <div className="signup">
+        <h1 className="text-center">Welcome to Batch Maker, a recipe making site!</h1>
+        <div className="container">
           <h2>Sign Up!</h2>
-          <form onSubmit={(event)=>{event.preventDefault(); this.props.signup(JSON.stringify(this.state));}}>
+          <form className="form-horizontal" onSubmit={(event)=>{event.preventDefault(); this.props.signup(JSON.stringify(this.state));}}>
             <div>
               <label>Username</label>
               <input type="email" onChange={ this._handleUsername }/>
             </div>
             <div>
               <label>Password</label>
-              <input type="password" onChange={ this._handlePassword }/>
+              <input type="password" className="form-control" placeholder="********" onChange={ this._handlePassword }/>
             </div>
 
             <div>
@@ -67,7 +72,7 @@ class App extends Component {
             </div>
             <div>
               <label>Password</label>
-              <input type="password"  onChange={ this._handlePassword } />
+              <input type="password" className="form-control" placeholder="********" onChange={ this._handlePassword } />
             </div>
 
             <div>
@@ -76,6 +81,10 @@ class App extends Component {
 
           </form>
         </div>
+
+
+
+
       </div>
     );
   }

@@ -11,7 +11,7 @@ export default class Navigation extends Component{
         <div>
           <button>
             <NavLink className="HomeLink" to="/">
-              Home
+              Login
             </NavLink>
           </button>
         </div>

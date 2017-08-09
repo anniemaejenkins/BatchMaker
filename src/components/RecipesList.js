@@ -15,7 +15,7 @@ export default class RecipesList extends Component {
     fetch("https://baby-parse-server.herokuapp.com/classes/Recipe", { headers: PARSE_HEADERS }).then(results => {
       return results.json();
     }).then(data => {
-      console.log("data",data);
+      // console.log("data",data);
       this.setState({recipes: data.results});
     });
   }
