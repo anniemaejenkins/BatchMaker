@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import Thunk from 'redux-thunk';
 import reducers from './reducers';
-
+import requireAuth from './components/require_auth';
 import './styles/index.css';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
@@ -18,7 +18,11 @@ import registerServiceWorker from './registerServiceWorker';
 
 const createStoreWithMiddleware = applyMiddleware(Thunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
-// const user = localStorage.getItem('user');
+const user = localStorage.getItem('user');
+
+if(user) {
+  store.dispatch({ type: 'AUTH_USER'});
+}
 
 ReactDOM.render(
   // the connect is a HOC that is specifically made to make communication with the Provider
@@ -29,8 +33,8 @@ ReactDOM.render(
       <BaseLayout>
         <Switch>
           <Route exact path="/" component={App} />
-          <Route path="/recipeslist" component={RecipesList} />
-          <Route path="/recipeform" component={RecipeForm} />
+          <Route path="/recipeslist" component={ requireAuth(RecipesList) } />
+          <Route path="/recipeform" component={ requireAuth(RecipeForm) } />
         </Switch>
       </BaseLayout>
     </BrowserRouter>
