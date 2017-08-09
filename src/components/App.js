@@ -46,11 +46,11 @@ class App extends Component {
           <form onSubmit={(event)=>{event.preventDefault(); this.props.signup(JSON.stringify(this.state));}}>
             <div>
               <label>Username</label>
-              <input type="text" value={ this.state.username } onChange={ this._handleUsername }/>
+              <input type="email" onChange={ this._handleUsername }/>
             </div>
             <div>
               <label>Password</label>
-              <input type="password" value={ this.state.password } onChange={ this._handlePassword }/>
+              <input type="password" onChange={ this._handlePassword }/>
             </div>
 
             <div>
@@ -60,14 +60,14 @@ class App extends Component {
         </div>
         <div className="login">
           <h2>Log In!</h2>
-          <form>
+          <form onSubmit={(event)=>{event.preventDefault(); this.props.login(this.state)}}>
             <div>
               <label>Username</label>
-              <input type="text" />
+              <input type="email"  onChange={ this._handleUsername }/>
             </div>
             <div>
               <label>Password</label>
-              <input type="password" />
+              <input type="password"  onChange={ this._handlePassword } />
             </div>
 
             <div>
