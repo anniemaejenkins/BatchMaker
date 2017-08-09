@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+// importing action creator
+import { signup, login } from './../actions/index';
+
 import './../styles/App.css';
 
 class App extends Component {
@@ -21,13 +27,23 @@ class App extends Component {
       password: event.target.value
     });
   }
+
+// this is a refactor of the two custom methods
+// _handleInput(event) {
+  // let obj = {};
+  // let key = event.target.name;
+  // obj[key] = event.target.value;
+  // this.setState(obj);
+// }
+
+
   render() {
     return (
       <div className="App">
         <h1>Welcome to Batch Maker, a recipe making site!</h1>
         <div className="signup">
           <h2>Sign Up!</h2>
-          <form>
+          <form onSubmit={(event)=>{event.preventDefault(); this.props.signup(JSON.stringify(this.state));}}>
             <div>
               <label>Username</label>
               <input type="text" value={ this.state.username } onChange={ this._handleUsername }/>
@@ -35,6 +51,10 @@ class App extends Component {
             <div>
               <label>Password</label>
               <input type="password" value={ this.state.password } onChange={ this._handlePassword }/>
+            </div>
+
+            <div>
+              <input type="submit" />
             </div>
           </form>
         </div>
@@ -49,6 +69,11 @@ class App extends Component {
               <label>Password</label>
               <input type="password" />
             </div>
+
+            <div>
+              <input type="submit" />
+            </div>
+
           </form>
         </div>
       </div>
@@ -56,4 +81,11 @@ class App extends Component {
   }
 }
 
-export default App;
+// helper function
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({ signup, login }, dispatch);
+}
+// the first argument is null because we're not using mapStateToProps, the second parenthesis is the component that you're on, so this is App
+export default connect(null, mapDispatchToProps)(App);
+
+// export default App;

@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import Thunk from 'redux-thunk';
+import reducers from './reducers';
 
 import './styles/index.css';
 
@@ -12,16 +16,25 @@ import BaseLayout from './components/BaseLayout.js';
 
 import registerServiceWorker from './registerServiceWorker';
 
+const createStoreWithMiddleware = applyMiddleware(Thunk)(createStore);
+const store = createStoreWithMiddleware(reducers);
+// const user = localStorage.getItem('user');
+
 ReactDOM.render(
-  <BrowserRouter>
-    <BaseLayout>
-      <Switch>
-        <Route exact path="/" component={App} />
-        <Route path="/recipeslist" component={RecipesList} />
-        <Route path="/recipeform" component={RecipeForm} />
-      </Switch>
-    </BaseLayout>
-  </BrowserRouter>
+  // the connect is a HOC that is specifically made to make communication with the Provider
+  // Provider wraps Redux store (had direct access to the Redux store) and watched for changes
+  // When changes occur, the Provider updates child components - broadcasting down to any connected components
+  <Provider store={ store }>
+    <BrowserRouter>
+      <BaseLayout>
+        <Switch>
+          <Route exact path="/" component={App} />
+          <Route path="/recipeslist" component={RecipesList} />
+          <Route path="/recipeform" component={RecipeForm} />
+        </Switch>
+      </BaseLayout>
+    </BrowserRouter>
+  </Provider>
   ,
    document.getElementById('root')
  );
