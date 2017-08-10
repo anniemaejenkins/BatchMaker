@@ -19,7 +19,8 @@ export default class RecipeForm extends Component{
       temp: 350,
       amount: 12,
       amountNotes: '',
-      personalNotes: ''
+      personalNotes: '',
+      steps: []
     };
 
     this._handlePrivacy = this._handlePrivacy.bind(this);
@@ -121,6 +122,18 @@ export default class RecipeForm extends Component{
   }
 
     render(){
+      let steps = this.state.steps.map((step, index) => {
+        return (
+          <div key={ index }>
+            <input type="number" />
+            <select placeholder="units">
+              <option placeholder="ounces">Ounces</option>
+              <option placeholder="pounds">Pounds</option>
+              <option placeholder="cups">Cups</option>
+            </select>
+          </div>
+        )
+      })
       return(
         <div>
           <h1>Add a Recipe!</h1>

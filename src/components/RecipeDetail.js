@@ -51,7 +51,7 @@ componentDidMount(){
         <table>
           <thead>
             <tr>
-              <th>{ this.state.recipe.amount } { this.state.recipe.amountNotes }</th>
+              <th>{ this.state.recipe.amount } { this.state.recipe.amountNotes }<input type="submit" placeholder="Adjust"/></th>
             </tr>
           </thead>
           <tbody>
