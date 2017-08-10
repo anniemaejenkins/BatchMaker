@@ -31,6 +31,7 @@ export default class Navigation extends Component{
             </NavLink>
           </button>
         </div>
+
       </div>
     );
   }

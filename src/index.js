@@ -13,6 +13,7 @@ import App from './components/App.js';
 import RecipesList from './components/RecipesList.js';
 import RecipeForm from './components/RecipeForm.js';
 import BaseLayout from './components/BaseLayout.js';
+import RecipeDetail from './components/RecipeDetail.js';
 
 import registerServiceWorker from './registerServiceWorker';
 
@@ -33,8 +34,9 @@ ReactDOM.render(
       <BaseLayout>
         <Switch>
           <Route exact path="/" component={App} />
-          <Route path="/recipeslist" component={ requireAuth(RecipesList) } />
+          <Route exact path="/recipeslist" component={ requireAuth(RecipesList) } />
           <Route path="/recipeform" component={ requireAuth(RecipeForm) } />
+          <Route path="/recipeslist/:id" component={ requireAuth(RecipeDetail) } />
         </Switch>
       </BaseLayout>
     </BrowserRouter>
