@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { setPointer } from './../utilities/parse.js';
+
 
 import { PARSE_BASE_URL, PARSE_HEADERS }  from './../utilities/parse.js';
 
@@ -100,10 +102,14 @@ export default class RecipeForm extends Component{
     event.preventDefault();
     console.log(event);
     console.log(this.state);
-    let listItem = this.state
+    let recipe = this.state
+    let objectId = JSON.parse(localStorage.getItem('user')).objectId;
+    recipe['chef'] = setPointer('_User', objectId);
+
+    // this needs to go in an action creator
     fetch(`${PARSE_BASE_URL}/classes/Recipe`, {
       method: "POST",
-      body: JSON.stringify(listItem),
+      body: JSON.stringify(recipe),
       headers: PARSE_HEADERS
     })
     .then(response => {
