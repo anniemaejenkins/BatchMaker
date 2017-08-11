@@ -56,18 +56,18 @@ componentDidMount(){
           </thead>
           <tbody>
             <tr>
-              <td>ingredient amount</td>
+              <td>ingredient amount{ this.state.recipe.ingredients }</td>
               <td>ingredient</td>
             </tr>
           </tbody>
         </table>
 
         <div>
-          <p>step placeholder</p>
+          <p>{ this.state.recipe.steps }</p>
         </div>
 
         <div>
-          <p> { this.state.recipe.personalNotes }</p>
+          <p>{ this.state.recipe.personalNotes }</p>
         </div>
 
       </div>

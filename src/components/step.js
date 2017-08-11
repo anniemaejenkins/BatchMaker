@@ -11,36 +11,42 @@
 
 import React, { Component } from 'react';
 
-import Ingredient from './ingredient.js';
+import Ingredient from './Ingredient.js';
 
 export default class Step extends Component {
   constructor(props){
     super(props);
     this.state = {
-      ingredients: []
+      ingredients: [{}]
     };
     this._handleIngredients = this._handleIngredients.bind(this);
+    this._addIngredients = this._addIngredients.bind(this);
   }
   _handleIngredients(input, index) {
     let ingredients = this.state.ingredients;
     ingredients[index] = input;
     this.setState({ ingredients });
-    console.log(this.state.ingredients);
+    // console.log(this.state.ingredients);
   }
+
+    _addIngredients() {
+      let ingredients = this.state.ingredients;
+      ingredients.push({});
+      this.setState({ ingredients });
+    }
   render(){
-    console.log('here', this.props.index);
+    // console.log('here', this.props.index);
     let ingredients = this.state.ingredients.map((ingredient, index) => {
       return (
-        <div className="ingredients" key={ index }>
           <Ingredient ingredient={ ingredient } index={ index } handleIngredients={ this._handleIngredients } />
-        </div>
       )
     })
     return(
       <div>
-        <Ingredient />
+        { ingredients }
+        <input type="button" placeholder="add" value="+" onClick={ this._addIngredients } />
+
         <input type="text" onChange={ (event) => this.props.handleStepNotes(event.target.value, this.props.index) } />
-        {/* <input type="button" placeholder="Add Step" value="+"/> */ }
       </div>
     )
   }

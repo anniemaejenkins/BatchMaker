@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { setPointer } from './../utilities/parse.js';
-import Step from './step.js';
+import Step from './Step.js';
 
 
 
@@ -53,7 +53,7 @@ export default class RecipeForm extends Component{
   _addStep() {
     let steps = this.state.steps;
     steps.push({});
-    this.setState({steps})
+    this.setState({ steps })
   }
 
   _handlePrivacy() {
