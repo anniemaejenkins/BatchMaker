@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { setPointer } from './../utilities/parse.js';
+import Step from './step.js';
+
 
 
 import { PARSE_BASE_URL, PARSE_HEADERS }  from './../utilities/parse.js';
@@ -20,7 +22,8 @@ export default class RecipeForm extends Component{
       amount: 12,
       amountNotes: '',
       personalNotes: '',
-      steps: []
+      steps: [{}],
+      ingredients: []
     };
 
     this._handlePrivacy = this._handlePrivacy.bind(this);
@@ -36,6 +39,21 @@ export default class RecipeForm extends Component{
     this._handleAmountNotes = this._handleAmountNotes.bind(this);
     this._handlePersonalNotes = this._handlePersonalNotes.bind(this);
     this._addToList = this._addToList.bind(this);
+    this._handleStepNotes = this._handleStepNotes.bind(this);
+    this._addStep = this._addStep.bind(this);
+  }
+
+  _handleStepNotes(input, index) {
+    let steps = this.state.steps;
+    steps[index].notes = input;
+    this.setState({ steps });
+    console.log(this.state.steps);
+  }
+
+  _addStep() {
+    let steps = this.state.steps;
+    steps.push({});
+    this.setState({steps})
   }
 
   _handlePrivacy() {
@@ -124,14 +142,7 @@ export default class RecipeForm extends Component{
     render(){
       let steps = this.state.steps.map((step, index) => {
         return (
-          <div key={ index }>
-            <input type="number" />
-            <select placeholder="units">
-              <option placeholder="ounces">Ounces</option>
-              <option placeholder="pounds">Pounds</option>
-              <option placeholder="cups">Cups</option>
-            </select>
-          </div>
+          <Step step={ step } index={ index } handleStepNotes={ this._handleStepNotes } key={ index }/>
         )
       })
       return(
@@ -196,7 +207,9 @@ export default class RecipeForm extends Component{
             </div>
 
             <div>
-              <p>Placeholder for steps component***</p>
+              <p>Steps</p>
+              { steps }
+              <input type='button' value='Add Step' onClick={this._addStep} />
             </div>
 
             <div>

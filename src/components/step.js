@@ -1,0 +1,47 @@
+// Recipe Component
+// render recipe details
+// inside the render, map over the recipe.steps and return a STEP COMPONENT  for each one (assign property of step to the component)
+//
+// Step Component
+// render step details
+// inside the render, map over the step.ingredients and return an INGREDIENT COMPONENT  for each one (assign property of ingrendient to the component)
+//
+// Ingredient Component
+// render the ingredient details
+
+import React, { Component } from 'react';
+
+import Ingredient from './ingredient.js';
+
+export default class Step extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      ingredients: []
+    };
+    this._handleIngredients = this._handleIngredients.bind(this);
+  }
+  _handleIngredients(input, index) {
+    let ingredients = this.state.ingredients;
+    ingredients[index] = input;
+    this.setState({ ingredients });
+    console.log(this.state.ingredients);
+  }
+  render(){
+    console.log('here', this.props.index);
+    let ingredients = this.state.ingredients.map((ingredient, index) => {
+      return (
+        <div className="ingredients" key={ index }>
+          <Ingredient ingredient={ ingredient } index={ index } handleIngredients={ this._handleIngredients } />
+        </div>
+      )
+    })
+    return(
+      <div>
+        <Ingredient />
+        <input type="text" onChange={ (event) => this.props.handleStepNotes(event.target.value, this.props.index) } />
+        {/* <input type="button" placeholder="Add Step" value="+"/> */ }
+      </div>
+    )
+  }
+}
