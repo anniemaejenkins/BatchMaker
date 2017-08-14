@@ -22,7 +22,13 @@ componentDidMount(){
 
 
   render(){
-    console.log('this', this.state);
+    console.log('this', this.state.recipe.steps);
+    // let steps = this.state.steps.map((step, index) => {
+    //   return(
+    //     <div key={ index }>
+    //     </div>
+    //   )
+    // })
     return(
       <div>
 
